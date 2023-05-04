@@ -185,7 +185,7 @@ with cols[2]:
         if audiofile is not None:
             st.markdown("### Transkript:")
             with st.spinner(f"Transkription von {audiofile.name} läuft..."):
-                df_transcription, transcription = transcribe(audiofile.name, "")
+                df_transcription, transcription = transcribe(audiofile, "")
 
             st.dataframe(data=df_transcription, use_container_width=True)
             st.markdown("")
