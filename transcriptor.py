@@ -187,7 +187,7 @@ with cols[2]:
             st.markdown("### Transkript:")
             with st.spinner(f"Transkription von {audiofile.name} läuft..."):
                 with NamedTemporaryFile() as temp:
-                    temp.write(audio.getvalue())
+                    temp.write(audiofile.getvalue())
                     temp.seek(0)
                     df_transcription, transcription = transcribe(temp.name, "")
 
