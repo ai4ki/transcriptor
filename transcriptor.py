@@ -12,6 +12,8 @@ from pyannote.audio import Audio
 from pyannote.core import Segment
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.metrics import silhouette_score
+from tempfile import NamedTemporaryFile
+
 
 # Embedding model
 embedding_model = PretrainedSpeakerEmbedding(
@@ -184,7 +186,10 @@ with cols[2]:
         if audiofile is not None:
             st.markdown("### Transkript:")
             with st.spinner(f"Transkription von {audiofile.name} läuft..."):
-                df_transcription, transcription = transcribe(audiofile, "")
+                with NamedTemporaryFile() as temp:
+                    temp.write(audio.getvalue())
+                    temp.seek(0)
+                    df_transcription, transcription = transcribe(temp.name, "")
 
             st.dataframe(data=df_transcription, use_container_width=True)
             st.markdown("")
