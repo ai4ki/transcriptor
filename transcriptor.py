@@ -162,6 +162,15 @@ def create_diarized_transcript(data):
     return diarized_transcript
 
 
+def save_uploaded_file(uploaded_file):
+    try:
+        with open(os.path.join('uploads', uploaded_file.name), 'wb') as f:
+            f.write(uploaded_file.getbuffer())
+        return 1
+    except:
+        return 0
+    
+
 with cols[0]:
     st.markdown("### Lade eine Audiodatei hoch:")
     audiofile = st.file_uploader(label="Lade eine Audiodatei hoch:",
@@ -172,15 +181,16 @@ with cols[0]:
 
 with cols[2]:
     if start_transcribe:
-        if audiofile:
-            st.markdown("### Transkript:")
-            with st.spinner(f"Transkription von {audiofile.name} läuft..."):
-                df_transcription, transcription = transcribe(audiofile, "")
+        if audiofile is not None:
+            if save_uploaded_file(audiofile):
+                st.markdown("### Transkript:")
+                with st.spinner(f"Transkription von {audiofile.name} läuft..."):
+                    df_transcription, transcription = transcribe(audiofile, "")
 
-            st.dataframe(data=df_transcription, use_container_width=True)
-            st.markdown("")
-            st.download_button(label="Transkription herunterladen",
-                               data=transcription,
-                               file_name=f"Transcript_{audiofile.name}.txt")
+                st.dataframe(data=df_transcription, use_container_width=True)
+                st.markdown("")
+                st.download_button(label="Transkription herunterladen",
+                                   data=transcription,
+                                   file_name=f"Transcript_{audiofile.name}.txt")
         else:
             st.markdown("#### Achtung: Du hast vergessen, eine Audiodatei hochzuladen!")
