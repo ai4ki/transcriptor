@@ -182,8 +182,8 @@ with cols[0]:
 with cols[2]:
     if start_transcribe:
         if audiofile is not None:
-            st.markdown("YES!")
             if save_uploaded_file(audiofile):
+                st.markdown("YES!")
                 st.markdown("### Transkript:")
                 with st.spinner(f"Transkription von {audiofile.name} läuft..."):
                     df_transcription, transcription = transcribe(audiofile, "")
