@@ -181,6 +181,7 @@ with cols[0]:
 
 with cols[2]:
     if start_transcribe:
+        print("STARTING...")
         if audiofile is not None:
             print("GOT AUDIO!")
             if save_uploaded_file(audiofile):
