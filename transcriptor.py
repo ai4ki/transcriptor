@@ -182,6 +182,7 @@ with cols[0]:
 with cols[2]:
     if start_transcribe:
         if audiofile is not None:
+            print("GOT AUDIO!")
             if save_uploaded_file(audiofile):
                 st.markdown("### Transkript:")
                 with st.spinner(f"Transkription von {audiofile.name} läuft..."):
