@@ -20,7 +20,7 @@ embedding_model = PretrainedSpeakerEmbedding(
     device=torch.device("cuda" if torch.cuda.is_available() else "cpu"))
 
 # Whisper model
-whisper_model = whisper.load_model("small")
+whisper_model = whisper.load_model("base")
 
 # Global Streamlit settings
 st.set_page_config(layout="wide", page_title="Transkription")
@@ -75,7 +75,7 @@ def convert_time(secs):
 
 def transcribe_diarize(wave_file, duration, num_speakers):
 
-    response = whisper_model.transcribe(wave_file)
+    response = whisper_model.transcribe(wave_file, language="de")
     segments = response["segments"]
 
     try:
