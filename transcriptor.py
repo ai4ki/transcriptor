@@ -25,7 +25,7 @@ whisper_model = whisper.load_model("small")
 # Global Streamlit settings
 st.set_page_config(layout="wide", page_title="Transkription")
 
-with open("style_purple.css") as f:
+with open("./css/style_purple.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 st.markdown(
